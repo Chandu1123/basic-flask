@@ -14,21 +14,23 @@ def welcome():
 
 @app.route('/succ/<int:score>')
 def succ(score):
-    res  = " "
+    res =""
     if score >=50:
-        res = "SUCCESS"
-        
+        res = "PASS"
     else:
         res = "FAIL"
 
-    return render_template('result.html', result=res)
+
+    exp = {'score': score,'res':res} 
+    return render_template('result.html', result=exp)
     
     
 
     
 @app.route('/fail/<int:score>')
 def fail(score):
-    return "the person scored less ...so failed and the score  is "+str(score)+"failed..........😒"
+    return render_template('result.html', result=score)
+    #return "the person scored less ...so failed and the score  is "+str(score)+"failed..........😒"
 
 
 @app.route('/results/<int:marks>')
@@ -57,7 +59,7 @@ def submit():
         res= "succ"
     else:
         res = "fail"
-    
+
     return redirect(url_for(res,score=total_marks))
 
 
